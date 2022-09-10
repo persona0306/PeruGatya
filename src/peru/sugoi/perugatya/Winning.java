@@ -29,6 +29,7 @@ public class Winning {
 
 	public ItemStack getDisplayItem() {
 		ItemStack displayItem = ItemUtil.getItemJava(item.name());
+		if (displayItem != null) displayItem = displayItem.clone();
 		String name;
 		
 		if (displayItem != null
