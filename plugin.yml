@@ -1,0 +1,13 @@
+name: PeruGatya
+version: 192.168.0.81
+api-version: 1.16
+main: peru.sugoi.perugatya.Main
+author: persona0306
+commands:
+  gatya:
+    description: Gatya settei
+    usage: /<command>
+    default: true
+permissions:
+  perugatya.op:
+    default: op
