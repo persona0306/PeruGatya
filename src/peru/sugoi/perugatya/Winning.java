@@ -1,6 +1,5 @@
 package peru.sugoi.perugatya;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -29,24 +28,25 @@ public class Winning {
 	}
 
 	public ItemStack getDisplayItem() {
-		ItemStack displayitem = ItemUtil.getItemJava(item.name());
-		ItemMeta itemmeta;
-		if (displayitem != null){
-			itemmeta = displayitem.getItemMeta();
-			if (itemmeta.hasDisplayName()) {
-				itemmeta.setDisplayName(itemmeta.getDisplayName() + " x" + item.amount());
-			}else {
-				itemmeta.setDisplayName(item.name() + " x" + item.amount());
-			}
-
+		ItemStack displayItem = ItemUtil.getItemJava(item.name());
+		String name;
+		
+		if (displayItem != null
+				&& displayItem.hasItemMeta()
+				&& displayItem.getItemMeta().hasDisplayName()) {
+			name = displayItem.getItemMeta().getDisplayName() + " x" + item.amount();
 		}else {
-			displayitem = new ItemStack(Material.STONE);
-			itemmeta = Bukkit.getItemFactory().getItemMeta(Material.STONE);
-			itemmeta.setDisplayName("???");
-
+			if (displayItem == null) {
+				displayItem = new ItemStack(Material.STONE);
+			}
+			name = item.name() + " x" + item.amount();
 		}
-		displayitem.setItemMeta(itemmeta);
-		return displayitem;
+		
+		ItemMeta itemMeta = displayItem.getItemMeta();
+		itemMeta.setDisplayName(name);
+		displayItem.setItemMeta(itemMeta);
+		
+		return displayItem;
 	}
 
 	public String getName() {
