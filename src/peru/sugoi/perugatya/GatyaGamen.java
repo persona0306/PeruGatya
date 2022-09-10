@@ -46,7 +46,7 @@ public class GatyaGamen {
 				String name;
 				ItemStack itemStack;
 				try {
-					itemStack = ItemUtil.getItemJava(item.name());
+					itemStack = ItemUtil.getItemJava(item.name()).clone();
 
 					if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName()) {
 						name = itemStack.getItemMeta().getDisplayName() + " x" + item.amount();
@@ -114,25 +114,29 @@ public class GatyaGamen {
 			ItemStack chest = new ItemStack(Material.CHEST);
 			Item item = Gatya.getGatya(getOpenGatya(player)).getCost();
 
-			ItemStack costItem = ItemUtil.getItemJava(item.name());
-			if (costItem != null) costItem = costItem.clone();
+			ItemStack costItem;
 			String costItemName;
-			
-			if (costItem != null
-					&& costItem.hasItemMeta()
-					&& costItem.getItemMeta().hasDisplayName()) {
-				costItemName = costItem.getItemMeta().getDisplayName() + " x" + item.amount();
-			}else {
-				if (costItem == null) {
-					costItem = new ItemStack(Material.STONE);
+			try {
+				costItem = ItemUtil.getItemJava(item.name()).clone();
+				if (costItem != null
+						&& costItem.hasItemMeta()
+						&& costItem.getItemMeta().hasDisplayName()) {
+					costItemName = costItem.getItemMeta().getDisplayName() + " x" + item.amount();
+				}else {
+					if (costItem == null) {
+						costItem = new ItemStack(Material.STONE);
+					}
+					costItemName = item.name() + " x" + item.amount();
 				}
+			}catch (Exception ex) {
+				costItem = new ItemStack(Material.STONE);
 				costItemName = item.name() + " x" + item.amount();
 			}
 			
 			ItemMeta chestItemMeta = chest.getItemMeta();
 			ItemMeta costItemMeta = costItem.getItemMeta();
 			
-			chestItemMeta.setDisplayName(costItemName);
+			chestItemMeta.setDisplayName(ChatColor.YELLOW + costItemName + ChatColor.RESET + " でガチャを回す！");
 			costItemMeta.setDisplayName(costItemName);
 			
 			chest.setItemMeta(chestItemMeta);
@@ -249,21 +253,27 @@ public class GatyaGamen {
 
 			Item item = cost;
 
-			String name;
-			ItemStack itemStack;
+			String costItemName;
+			ItemStack costItem;
 			try {
-				itemStack = ItemUtil.getItemJava(item.name());
-
-				if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName()) {
-					name = itemStack.getItemMeta().getDisplayName() + " x" + item.amount();
+				costItem = ItemUtil.getItemJava(item.name()).clone();
+				
+				if (costItem != null
+						&& costItem.hasItemMeta()
+						&& costItem.getItemMeta().hasDisplayName()) {
+					costItemName = costItem.getItemMeta().getDisplayName() + " x" + item.amount();
 				}else {
-					name = item.name() + " x" + item.amount();
+					if (costItem == null) {
+						costItem = new ItemStack(Material.STONE);
+					}
+					costItemName = item.name() + " x" + item.amount();
 				}
 			}catch (Exception ex) {
-				name = "???";
+				costItem = new ItemStack(Material.STONE);
+				costItemName = item.name() + " x" + item.amount();
 			}
 
-			item22meta.setDisplayName(ItemUtil.getItemJava(cost.name()).getItemMeta().getDisplayName() + "が足りません :(");
+			item22meta.setDisplayName(costItemName + " をもっていません :(");
 			item22.setItemMeta(item22meta);
 			player.getOpenInventory().getTopInventory().setItem(22, item22);
 			return;
@@ -362,7 +372,7 @@ public class GatyaGamen {
 
 			ItemStack itemStack;
 			try {
-				itemStack = ItemUtil.getItemJava(item.name());
+				itemStack = ItemUtil.getItemJava(item.name()).clone();
 
 				if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName()) {
 					name = itemStack.getItemMeta().getDisplayName() + " x" + item.amount();

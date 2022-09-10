@@ -28,24 +28,29 @@ public class Winning {
 	}
 
 	public ItemStack getDisplayItem() {
-		ItemStack displayItem = ItemUtil.getItemJava(item.name());
-		if (displayItem != null) displayItem = displayItem.clone();
+		ItemStack displayItem;
 		String name;
-		
-		if (displayItem != null
-				&& displayItem.hasItemMeta()
-				&& displayItem.getItemMeta().hasDisplayName()) {
-			name = displayItem.getItemMeta().getDisplayName() + " x" + item.amount();
-		}else {
-			if (displayItem == null) {
-				displayItem = new ItemStack(Material.STONE);
+		try {
+			displayItem = ItemUtil.getItemJava(item.name()).clone();
+			
+			if (displayItem != null
+					&& displayItem.hasItemMeta()
+					&& displayItem.getItemMeta().hasDisplayName()) {
+				name = displayItem.getItemMeta().getDisplayName() + " x" + item.amount();
+			}else {
+				if (displayItem == null) {
+					displayItem = new ItemStack(Material.STONE);
+				}
+				name = item.name() + " x" + item.amount();
 			}
+		}catch (Exception ex) {
+			displayItem = new ItemStack(Material.STONE);
 			name = item.name() + " x" + item.amount();
 		}
 		
-		ItemMeta itemMeta = displayItem.getItemMeta();
-		itemMeta.setDisplayName(name);
-		displayItem.setItemMeta(itemMeta);
+		ItemMeta displayItemMeta = displayItem.getItemMeta();
+		displayItemMeta.setDisplayName(name);
+		displayItem.setItemMeta(displayItemMeta);
 		
 		return displayItem;
 	}
