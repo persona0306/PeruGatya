@@ -8,7 +8,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import hm.moe.pokkedoll.warscore.WarsCore;
 import hm.moe.pokkedoll.warscore.utils.ItemUtil;
-import scala.Option;
 
 public class Winning {
 	private String rare;
@@ -30,11 +29,9 @@ public class Winning {
 	}
 
 	public ItemStack getDisplayItem() {
-		ItemStack displayitem;
+		ItemStack displayitem = ItemUtil.getItemJava(item.name());
 		ItemMeta itemmeta;
-		Option<ItemStack> option = ItemUtil.getItem(item.name());
-		if (!option.isEmpty()){
-			displayitem = option.get().clone();
+		if (displayitem != null){
 			itemmeta = displayitem.getItemMeta();
 			if (itemmeta.hasDisplayName()) {
 				itemmeta.setDisplayName(itemmeta.getDisplayName() + " x" + item.amount());
@@ -69,6 +66,6 @@ public class Winning {
 	}
 
 	public void win(Player player) {
-		WarsCore.getInstance().database().addWeapon("" + player.getUniqueId(), item.getType().toString(), item.name(), item.amount());
+		WarsCore.getInstance().database().addWeapon4J("" + player.getUniqueId(), item.getType().toString(), item.name(), item.amount());
 	}
 }

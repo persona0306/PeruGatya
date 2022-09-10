@@ -19,7 +19,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import hm.moe.pokkedoll.warscore.WarsCore;
 import hm.moe.pokkedoll.warscore.utils.Item;
 import hm.moe.pokkedoll.warscore.utils.ItemUtil;
-import scala.collection.immutable.SeqOps;
 
 public class GatyaGamen {
 	public static final String TITLE = ChatColor.YELLOW + "Gatya";
@@ -273,8 +272,8 @@ public class GatyaGamen {
 		int amount = cost.amount();
 
 		List<Item> items = WarsCore.getInstance().database().getWeapons4J("" + player.getUniqueId(), type.toString(), 0);
-		for (int i = 0; i < ((SeqOps<Item,?,?>)items).size(); i++) {
-			Item item = ((SeqOps<Item,?,?>)items).apply(i);
+		for (int i = 0; i < items.size(); i++) {
+			Item item = items.get(i);
 			if (item.name().equals(name)) {
 				return item.amount() >= amount;
 			}
