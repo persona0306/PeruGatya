@@ -111,23 +111,35 @@ public class GatyaGamen {
 		Inventory menu;
 		if (!confirmmenu.containsKey(gatyaname)) {
 			menu = Bukkit.createInventory(null, 45, TITLE);
-			ItemStack item22 = new ItemStack(Material.CHEST);
-			ItemMeta item22meta = Bukkit.getServer().getItemFactory().getItemMeta(Material.CHEST);
+			ItemStack chest = new ItemStack(Material.CHEST);
 			Item item = Gatya.getGatya(getOpenGatya(player)).getCost();
 
-			String name;
-			ItemStack itemStack;
-			try {
-				itemStack = ItemUtil.getItemJava(item.name());
-
-				if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName()) {
-					name = itemStack.getItemMeta().getDisplayName() + " x" + item.amount();
-				}else {
-					name = item.name() + " x" + item.amount();
+			ItemStack costItem = ItemUtil.getItemJava(item.name());
+			if (costItem != null) costItem = costItem.clone();
+			String costItemName;
+			
+			if (costItem != null
+					&& costItem.hasItemMeta()
+					&& costItem.getItemMeta().hasDisplayName()) {
+				costItemName = costItem.getItemMeta().getDisplayName() + " x" + item.amount();
+			}else {
+				if (costItem == null) {
+					costItem = new ItemStack(Material.STONE);
 				}
-			}catch (Exception ex) {
-				name = "???";
+				costItemName = item.name() + " x" + item.amount();
 			}
+			
+			ItemMeta chestItemMeta = chest.getItemMeta();
+			ItemMeta costItemMeta = costItem.getItemMeta();
+			
+			chestItemMeta.setDisplayName(costItemName);
+			costItemMeta.setDisplayName(costItemName);
+			
+			chest.setItemMeta(chestItemMeta);
+			costItem.setItemMeta(costItemMeta);
+			
+			menu.setItem(22, chest);
+			menu.setItem(31, costItem);
 		}else {
 			menu = confirmmenu.get(gatyaname);
 		}
