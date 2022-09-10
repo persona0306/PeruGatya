@@ -54,7 +54,8 @@ public class GatyaGamen {
 						name = item.name() + " x" + item.amount();
 					}
 				}catch (Exception ex) {
-					name = "???";
+					itemStack = new ItemStack(Material.STONE);
+					name = item.name() + " x" + item.amount();
 				}
 
 				item22meta.setDisplayName(ChatColor.YELLOW + name + ChatColor.RESET + " でガチャを回す！");
@@ -380,7 +381,8 @@ public class GatyaGamen {
 					name = item.name() + " x" + item.amount();
 				}
 			}catch (Exception ex) {
-				name = "???";
+				itemStack = new ItemStack(Material.STONE);
+				name = item.name() + " x" + item.amount();
 			}
 
 			chestmeta.setDisplayName(ChatColor.YELLOW + name + ChatColor.RESET + " でガチャを回す！");
