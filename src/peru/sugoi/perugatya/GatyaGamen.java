@@ -112,6 +112,11 @@ public class GatyaGamen {
 		Inventory menu;
 		if (!confirmmenu.containsKey(gatyaname)) {
 			menu = Bukkit.createInventory(null, 45, TITLE);
+			ItemStack frame = new ItemStack(Material.YELLOW_STAINED_GLASS_PANE);
+			for (int i = 0; i < menu.getSize(); i++) {
+				menu.setItem(i, frame);
+			}
+			
 			ItemStack chest = new ItemStack(Material.CHEST);
 			Item item = Gatya.getGatya(getOpenGatya(player)).getCost();
 
