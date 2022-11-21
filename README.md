@@ -1,2 +1,2 @@
 # PeruGatya
-PokkeDoll Wars Server's plugin adds Lucky box future
+PokkeDoll Wars Server's plugin adds Lucky box feature
