@@ -7,6 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="libs/spigot-1.17.1.jar"/>
-	<classpathentry kind="lib" path="libs/warscore-2.5.jar"/>
+	<classpathentry kind="lib" path="libs/warscore-3.0.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
